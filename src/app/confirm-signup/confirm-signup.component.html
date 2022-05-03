@@ -1,0 +1,16 @@
+<mat-card class="conf-card">
+    <mat-card-header>
+      <mat-card-title class="conf-title">確認コード</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form class="conf-form" [formGroup]="confirmForm">
+            <mat-form-field>
+                <input type="text" matInput placeholder="確認コード" formControlName="confirmNumber">
+            </mat-form-field>
+        </form>
+        <div class="button-group" >
+            <button type="submit" mat-raised-button color="primary" [disabled]="confirmForm.invalid" (click)="confirmSignUp()">確認</button>
+        </div>
+
+    </mat-card-content>
+</mat-card>

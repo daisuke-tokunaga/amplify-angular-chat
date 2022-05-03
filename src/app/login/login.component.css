@@ -1,0 +1,22 @@
+.login-card {
+    max-width: 600px;
+    text-align: center;
+    margin: 15em auto;
+  }
+
+  .login-form {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .login-title {
+    font-weight: bold;
+    font-size: 22px;
+    color: #3f51b5;
+  }
+
+  .button-group {
+    justify-content: space-evenly;
+    display: flex;
+  }
