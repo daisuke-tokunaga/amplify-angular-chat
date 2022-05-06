@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
+import { NavigationExtras, Router } from '@angular/router';
+import { tap } from 'rxjs';
+import { SessionService } from '../service/session.service';
 
 @Component({
   selector: 'app-signup',
@@ -9,7 +11,10 @@ import { Router } from '@angular/router';
 })
 export class SignupComponent implements OnInit {
 
-  constructor(private router: Router,) { }
+  constructor(
+    private router: Router,
+    private sessionService: SessionService
+    ) { }
 
   ngOnInit(): void {
   }
@@ -22,15 +27,15 @@ export class SignupComponent implements OnInit {
 
   onConfirmSignup() {
     const value = this.signUpForm.value;
-    console.log(value)
-    // const navigationExtra: NavigationExtras = {
-    //   queryParams: {
-    //     userName: value.userName
-    //   }
-    // };
-    // this.sessionService.entryUserSignUp(value).pipe(
-    //   tap(() => this.router.navigate(['/confirm-signup'], navigationExtra))
-    // ).subscribe();
+    console.log("username",value.username)
+    const navigationExtra: NavigationExtras = {
+      queryParams: {
+        username: value.email
+      }
+    };
+    this.sessionService.entryUserSignUp(value).pipe(
+      tap(() => this.router.navigate(['/conf-signup'], navigationExtra))
+    ).subscribe();
   }
 
 }

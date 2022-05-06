@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { SessionService } from '../service/session.service';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +12,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 export class LoginComponent {
   constructor(
     private router: Router,
-    // private sessionService: SessionService,
+    private sessionService: SessionService,
   ) { }
 
   loginForm: FormGroup = new FormGroup({
@@ -25,10 +26,9 @@ export class LoginComponent {
 
   onLogin() {
     const value = this.loginForm.value;
-    console.log(value)
-    // this.sessionService.signIn(value.email, value.password).subscribe((signInResult) => {
-    //   this.router.navigate(['/home']); // Home画面へ繊維する
-    // });
+    this.sessionService.signIn(value.email, value.password).subscribe((signInResult) => {
+      this.router.navigate(['/home']); // Home画面へ繊維する
+    });
   }
 
   onSignUp() {

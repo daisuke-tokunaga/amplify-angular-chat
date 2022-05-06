@@ -1,32 +1,19 @@
-/* tslint:disable */
-/* eslint-disable */
-//  This file was automatically generated and should not be edited.
 import { Injectable } from "@angular/core";
 import API, { graphqlOperation, GraphQLResult } from "@aws-amplify/api-graphql";
 import { Observable } from "zen-observable-ts";
 
-export interface SubscriptionResponse<T> {
-  value: GraphQLResult<T>;
-}
-
-export type __SubscriptionContainer = {
-  onCreateTodo: OnCreateTodoSubscription;
-  onUpdateTodo: OnUpdateTodoSubscription;
-  onDeleteTodo: OnDeleteTodoSubscription;
-};
-
-export type CreateTodoInput = {
+export type CreateMessageInput = {
   id?: string | null;
-  name: string;
-  description?: string | null;
+  email: string;
+  content?: string | null;
 };
 
-export type ModelTodoConditionInput = {
-  name?: ModelStringInput | null;
-  description?: ModelStringInput | null;
-  and?: Array<ModelTodoConditionInput | null> | null;
-  or?: Array<ModelTodoConditionInput | null> | null;
-  not?: ModelTodoConditionInput | null;
+export type ModelMessageConditionInput = {
+  email?: ModelStringInput | null;
+  content?: ModelStringInput | null;
+  and?: Array<ModelMessageConditionInput | null> | null;
+  or?: Array<ModelMessageConditionInput | null> | null;
+  not?: ModelMessageConditionInput | null;
 };
 
 export type ModelStringInput = {
@@ -68,32 +55,23 @@ export type ModelSizeInput = {
   between?: Array<number | null> | null;
 };
 
-export type Todo = {
-  __typename: "Todo";
+export type UpdateMessageInput = {
   id: string;
-  name: string;
-  description?: string | null;
-  createdAt: string;
-  updatedAt: string;
+  email?: string | null;
+  content?: string | null;
 };
 
-export type UpdateTodoInput = {
-  id: string;
-  name?: string | null;
-  description?: string | null;
+export type DeleteMessageInput = {
+  id?: string | null;
 };
 
-export type DeleteTodoInput = {
-  id: string;
-};
-
-export type ModelTodoFilterInput = {
+export type ModelMessageFilterInput = {
   id?: ModelIDInput | null;
-  name?: ModelStringInput | null;
-  description?: ModelStringInput | null;
-  and?: Array<ModelTodoFilterInput | null> | null;
-  or?: Array<ModelTodoFilterInput | null> | null;
-  not?: ModelTodoFilterInput | null;
+  email?: ModelStringInput | null;
+  content?: ModelStringInput | null;
+  and?: Array<ModelMessageFilterInput | null> | null;
+  or?: Array<ModelMessageFilterInput | null> | null;
+  not?: ModelMessageFilterInput | null;
 };
 
 export type ModelIDInput = {
@@ -112,84 +90,78 @@ export type ModelIDInput = {
   size?: ModelSizeInput | null;
 };
 
-export type ModelTodoConnection = {
-  __typename: "ModelTodoConnection";
-  items: Array<Todo | null>;
-  nextToken?: string | null;
-};
-
-export type CreateTodoMutation = {
-  __typename: "Todo";
+export type CreateMessageMutation = {
+  __typename: "Message";
   id: string;
-  name: string;
-  description?: string | null;
+  email: string;
+  content: string | null;
   createdAt: string;
   updatedAt: string;
 };
 
-export type UpdateTodoMutation = {
-  __typename: "Todo";
+export type UpdateMessageMutation = {
+  __typename: "Message";
   id: string;
-  name: string;
-  description?: string | null;
+  email: string;
+  content: string | null;
   createdAt: string;
   updatedAt: string;
 };
 
-export type DeleteTodoMutation = {
-  __typename: "Todo";
+export type DeleteMessageMutation = {
+  __typename: "Message";
   id: string;
-  name: string;
-  description?: string | null;
+  email: string;
+  content: string | null;
   createdAt: string;
   updatedAt: string;
 };
 
-export type GetTodoQuery = {
-  __typename: "Todo";
+export type GetMessageQuery = {
+  __typename: "Message";
   id: string;
-  name: string;
-  description?: string | null;
+  email: string;
+  content: string | null;
   createdAt: string;
   updatedAt: string;
 };
 
-export type ListTodosQuery = {
-  __typename: "ModelTodoConnection";
+export type ListMessagesQuery = {
+  __typename: "ModelMessageConnection";
   items: Array<{
-    __typename: "Todo";
+    __typename: "Message";
     id: string;
-    name: string;
-    description?: string | null;
+    email: string;
+    content: string | null;
     createdAt: string;
     updatedAt: string;
-  } | null>;
-  nextToken?: string | null;
+  } | null> | null;
+  nextToken: string | null;
 };
 
-export type OnCreateTodoSubscription = {
-  __typename: "Todo";
+export type OnCreateMessageSubscription = {
+  __typename: "Message";
   id: string;
-  name: string;
-  description?: string | null;
+  email: string;
+  content: string | null;
   createdAt: string;
   updatedAt: string;
 };
 
-export type OnUpdateTodoSubscription = {
-  __typename: "Todo";
+export type OnUpdateMessageSubscription = {
+  __typename: "Message";
   id: string;
-  name: string;
-  description?: string | null;
+  email: string;
+  content: string | null;
   createdAt: string;
   updatedAt: string;
 };
 
-export type OnDeleteTodoSubscription = {
-  __typename: "Todo";
+export type OnDeleteMessageSubscription = {
+  __typename: "Message";
   id: string;
-  name: string;
-  description?: string | null;
+  email: string;
+  content: string | null;
   createdAt: string;
   updatedAt: string;
 };
@@ -198,16 +170,16 @@ export type OnDeleteTodoSubscription = {
   providedIn: "root"
 })
 export class APIService {
-  async CreateTodo(
-    input: CreateTodoInput,
-    condition?: ModelTodoConditionInput
-  ): Promise<CreateTodoMutation> {
-    const statement = `mutation CreateTodo($input: CreateTodoInput!, $condition: ModelTodoConditionInput) {
-        createTodo(input: $input, condition: $condition) {
+  async CreateMessage(
+    input: CreateMessageInput,
+    condition?: ModelMessageConditionInput
+  ): Promise<CreateMessageMutation> {
+    const statement = `mutation CreateMessage($input: CreateMessageInput!, $condition: ModelMessageConditionInput) {
+        createMessage(input: $input, condition: $condition) {
           __typename
           id
-          name
-          description
+          email
+          content
           createdAt
           updatedAt
         }
@@ -221,18 +193,18 @@ export class APIService {
     const response = (await API.graphql(
       graphqlOperation(statement, gqlAPIServiceArguments)
     )) as any;
-    return <CreateTodoMutation>response.data.createTodo;
+    return <CreateMessageMutation>response.data.createMessage;
   }
-  async UpdateTodo(
-    input: UpdateTodoInput,
-    condition?: ModelTodoConditionInput
-  ): Promise<UpdateTodoMutation> {
-    const statement = `mutation UpdateTodo($input: UpdateTodoInput!, $condition: ModelTodoConditionInput) {
-        updateTodo(input: $input, condition: $condition) {
+  async UpdateMessage(
+    input: UpdateMessageInput,
+    condition?: ModelMessageConditionInput
+  ): Promise<UpdateMessageMutation> {
+    const statement = `mutation UpdateMessage($input: UpdateMessageInput!, $condition: ModelMessageConditionInput) {
+        updateMessage(input: $input, condition: $condition) {
           __typename
           id
-          name
-          description
+          email
+          content
           createdAt
           updatedAt
         }
@@ -246,18 +218,18 @@ export class APIService {
     const response = (await API.graphql(
       graphqlOperation(statement, gqlAPIServiceArguments)
     )) as any;
-    return <UpdateTodoMutation>response.data.updateTodo;
+    return <UpdateMessageMutation>response.data.updateMessage;
   }
-  async DeleteTodo(
-    input: DeleteTodoInput,
-    condition?: ModelTodoConditionInput
-  ): Promise<DeleteTodoMutation> {
-    const statement = `mutation DeleteTodo($input: DeleteTodoInput!, $condition: ModelTodoConditionInput) {
-        deleteTodo(input: $input, condition: $condition) {
+  async DeleteMessage(
+    input: DeleteMessageInput,
+    condition?: ModelMessageConditionInput
+  ): Promise<DeleteMessageMutation> {
+    const statement = `mutation DeleteMessage($input: DeleteMessageInput!, $condition: ModelMessageConditionInput) {
+        deleteMessage(input: $input, condition: $condition) {
           __typename
           id
-          name
-          description
+          email
+          content
           createdAt
           updatedAt
         }
@@ -271,15 +243,15 @@ export class APIService {
     const response = (await API.graphql(
       graphqlOperation(statement, gqlAPIServiceArguments)
     )) as any;
-    return <DeleteTodoMutation>response.data.deleteTodo;
+    return <DeleteMessageMutation>response.data.deleteMessage;
   }
-  async GetTodo(id: string): Promise<GetTodoQuery> {
-    const statement = `query GetTodo($id: ID!) {
-        getTodo(id: $id) {
+  async GetMessage(id: string): Promise<GetMessageQuery> {
+    const statement = `query GetMessage($id: ID!) {
+        getMessage(id: $id) {
           __typename
           id
-          name
-          description
+          email
+          content
           createdAt
           updatedAt
         }
@@ -290,21 +262,21 @@ export class APIService {
     const response = (await API.graphql(
       graphqlOperation(statement, gqlAPIServiceArguments)
     )) as any;
-    return <GetTodoQuery>response.data.getTodo;
+    return <GetMessageQuery>response.data.getMessage;
   }
-  async ListTodos(
-    filter?: ModelTodoFilterInput,
+  async ListMessages(
+    filter?: ModelMessageFilterInput,
     limit?: number,
     nextToken?: string
-  ): Promise<ListTodosQuery> {
-    const statement = `query ListTodos($filter: ModelTodoFilterInput, $limit: Int, $nextToken: String) {
-        listTodos(filter: $filter, limit: $limit, nextToken: $nextToken) {
+  ): Promise<ListMessagesQuery> {
+    const statement = `query ListMessages($filter: ModelMessageFilterInput, $limit: Int, $nextToken: String) {
+        listMessages(filter: $filter, limit: $limit, nextToken: $nextToken) {
           __typename
           items {
             __typename
             id
-            name
-            description
+            email
+            content
             createdAt
             updatedAt
           }
@@ -321,65 +293,61 @@ export class APIService {
     if (nextToken) {
       gqlAPIServiceArguments.nextToken = nextToken;
     }
+    console.log(statement)
+    console.log(gqlAPIServiceArguments)
     const response = (await API.graphql(
       graphqlOperation(statement, gqlAPIServiceArguments)
     )) as any;
-    return <ListTodosQuery>response.data.listTodos;
+    return <ListMessagesQuery>response.data.listMessages;
   }
-  OnCreateTodoListener: Observable<
-    SubscriptionResponse<Pick<__SubscriptionContainer, "onCreateTodo">>
+  OnCreateMessageListener: Observable<
+    OnCreateMessageSubscription
   > = API.graphql(
     graphqlOperation(
-      `subscription OnCreateTodo {
-        onCreateTodo {
+      `subscription OnCreateMessage {
+        onCreateMessage {
           __typename
           id
-          name
-          description
+          email
+          content
           createdAt
           updatedAt
         }
       }`
     )
-  ) as Observable<
-    SubscriptionResponse<Pick<__SubscriptionContainer, "onCreateTodo">>
-  >;
+  ) as Observable<OnCreateMessageSubscription>;
 
-  OnUpdateTodoListener: Observable<
-    SubscriptionResponse<Pick<__SubscriptionContainer, "onUpdateTodo">>
+  OnUpdateMessageListener: Observable<
+    OnUpdateMessageSubscription
   > = API.graphql(
     graphqlOperation(
-      `subscription OnUpdateTodo {
-        onUpdateTodo {
+      `subscription OnUpdateMessage {
+        onUpdateMessage {
           __typename
           id
-          name
-          description
+          email
+          content
           createdAt
           updatedAt
         }
       }`
     )
-  ) as Observable<
-    SubscriptionResponse<Pick<__SubscriptionContainer, "onUpdateTodo">>
-  >;
+  ) as Observable<OnUpdateMessageSubscription>;
 
-  OnDeleteTodoListener: Observable<
-    SubscriptionResponse<Pick<__SubscriptionContainer, "onDeleteTodo">>
+  OnDeleteMessageListener: Observable<
+    OnDeleteMessageSubscription
   > = API.graphql(
     graphqlOperation(
-      `subscription OnDeleteTodo {
-        onDeleteTodo {
+      `subscription OnDeleteMessage {
+        onDeleteMessage {
           __typename
           id
-          name
-          description
+          email
+          content
           createdAt
           updatedAt
         }
       }`
     )
-  ) as Observable<
-    SubscriptionResponse<Pick<__SubscriptionContainer, "onDeleteTodo">>
-  >;
+  ) as Observable<OnDeleteMessageSubscription>;
 }

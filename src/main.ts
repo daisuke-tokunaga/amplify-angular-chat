@@ -4,10 +4,12 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { AppModule } from './app/app.module';
 import { environment } from './environments/environment';
 
-// AmplifyModule
+
+import Amplify from 'aws-amplify';
 import PubSub from '@aws-amplify/pubsub';
 import API from '@aws-amplify/api';
-// import awsmobile from '/aws-exports';
+import awsmobile from './aws-exports';
+import { Auth } from 'aws-amplify';
 
 if (environment.production) {
   enableProdMode();
@@ -16,4 +18,6 @@ if (environment.production) {
 platformBrowserDynamic().bootstrapModule(AppModule)
   .catch(err => console.error(err));
 
-// API.configure(awsmobile);
+Amplify.configure(awsmobile);
+API.configure(awsmobile);
+PubSub.configure(awsmobile);

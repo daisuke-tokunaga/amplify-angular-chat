@@ -1,9 +1,9 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
-// import { SessionService } from '../service/session.service';
+import { SessionService } from '../service/session.service';
 // import { IonContent, Platform } from '@ionic/angular';
 import { APIService } from '../../app/API.service';
-// import { v4 as uuid } from 'uuid';
-// import { Message, responseCreateMessageListener } from '../interface/message';
+import { v4 as uuid } from 'uuid';
+import { Message } from '../interface/message';
 
 @Component({
   selector: 'app-home',
@@ -11,54 +11,52 @@ import { APIService } from '../../app/API.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
-
-  constructor() {
-  }
-
   // @ViewChild(IonContent, { static: false }) content: IonContent;
 
-//   chatMessage: any;
-//   currentEmail: string | undefined;
-//   messages: Message[] | undefined;   // 投稿されたメッセージを格納する変数
+  chatMessage: any;
+  currentEmail: any;
+  //臨時any
+  messages: any;
 
-//   constructor(
-//     // private sessionService: SessionService,
-//     private apiService: APIService,
-//     private platform: Platform,
-//   ) {
-//     this.initializeApp();
-//   }
+  constructor(
+    private apiService: APIService,
+    private sessionService: SessionService,
+  ) {
+    this.initializeApp();
+  }
 
-//   // 初期読み込み
-//   ngOnInit() {
-//     this.sessionService.fetchCurrentUser().subscribe((email: string) => {
-//       this.currentEmail = email;
-//       this.apiService.ListMessages().then(data => {
-//         this.messages = data.items;
-//       });
-//     });
-//   }
+  // 初期読み込み
+  ngOnInit() {
+    this.sessionService.fetchCurrentUser().subscribe((email: string) => {
+      this.currentEmail = email;
+      console.log("email",this.currentEmail)
+      if(this.messages !== null) {
+        this.apiService.ListMessages().then(data => {
+          console.log("return data",data)
+          this.messages = data.items;
+        });
+      }
+    });
+  }
 
-// 　// ログアウトボタンのクリック時
-//   onSignOut() {
-//     this.sessionService.signout();
-//   }
+　// ログアウトボタンのクリック時
+  onSignOut() {
+    this.sessionService.signout();
+  }
 
-//   sendChatMessage() {
-//     const inputMessage = this.chatMessage;
-//     const contentMessage = {
-//       id: `${uuid()}`,
-//       email: this.currentEmail,
-//       content: inputMessage
-//     };
-//     this.apiService.CreateMessage(contentMessage).then();
-//   }
+  sendChatMessage() {
+    const inputMessage = this.chatMessage;
+    const contentMessage = {
+      id: `${uuid()}`,
+      email: this.currentEmail,
+      content: inputMessage
+    };
+    this.apiService.CreateMessage(contentMessage).then();
+  }
 
-//   initializeApp() {
-//     this.platform.ready().then(() => {
-//       this.apiService.OnCreateMessageListener.subscribe((evt: any) => {
-//         this.messages.push(evt.value.data.onCreateMessage);
-//       });
-//     });
-//   }
+  initializeApp() {
+    this.apiService.OnCreateMessageListener.subscribe((evt: any) => {
+      this.messages.push(evt.value.data.onCreateMessage);
+    });
+  }
 }

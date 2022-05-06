@@ -1,15 +1,47 @@
+
+
+
+
+
+
 <div class="container">
+
     <div class="messages">
-      <p
-      >
-        <i>ああああ</i> <br/> ああああ
+      <p *ngFor="let message of messages">
+        <i
+        size="9"
+        *ngIf="currentEmail !== message.email"
+        class="message other-message"
+        >
+        <span> {{ message.content }} </span><br />
+        <div class="time" text-right>
+        <br />
+          <!-- Angular Date Pipe -->
+          {{message.createdAt | date:'yyyy/MM/dd hh:mm' }}
+        </div>
+        </i>
       </p>
     </div>
 
     <div class="messageInput">
-      <input type="text" placeholder="enter a text message"/>
-      <button>
+      <input
+      type="text"
+      placeholder="enter a text message"
+      autosize
+      maxRows="4"
+      [(ngModel)]="chatMessage"
+      class="message-input"
+      #messageText />
+    <button
+          expand="block"
+          fill="clear"
+          color="primary"
+          [disabled]="chatMessage === ''"
+          class="msg-btn"
+          (click)="sendChatMessage()"
+      >
         Send
       </button>
     </div>
-  </div>
+
+</div>
